@@ -108,12 +108,12 @@ export default async function OrdersPage() {
 
                   {order.shippingCost > 0 && (
                     <p className="text-[10px] font-medium uppercase text-muted-foreground">
-                      Shipping: €{order.shippingCost.toFixed(2)}
+                      Shipping: ${order.shippingCost.toFixed(2)}
                     </p>
                   )}
 
                   <p className="text-2xl font-light italic tracking-tight text-black">
-                    €{order.totalPrice.toFixed(2)}
+                    ${order.totalPrice.toFixed(2)}
                   </p>
 
                   <p className="text-[8px] font-bold uppercase tracking-tighter text-muted-foreground">
@@ -144,7 +144,7 @@ export default async function OrdersPage() {
                       </div>
                     </div>
                     <p className="text-[10px] font-medium text-gray-500">
-                      €{Number(item.price).toFixed(2)}
+                      ${Number(item.price).toFixed(2)}
                     </p>
                   </div>
                 ))}

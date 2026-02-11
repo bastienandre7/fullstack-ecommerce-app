@@ -58,7 +58,7 @@ export function EditProductForm({ product }: { product: Product }) {
   const categoryId = useWatch({ control: form.control, name: "categoryId" });
 
   const onSubmit: SubmitHandler<ProductFormInput> = async (data) => {
-    const toastId = toast.loading("Mise à jour du produit...");
+    const toastId = toast.loading("Product update...");
 
     const formattedData = {
       ...data,

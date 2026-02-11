@@ -47,7 +47,7 @@ export default async function DashboardOverview() {
           <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
             Total Acquisitions
           </p>
-          <p className="text-3xl font-light italic">€{totalSpent.toFixed(2)}</p>
+          <p className="text-3xl font-light italic">${totalSpent.toFixed(2)}</p>
         </div>
         <div className="bg-white p-8 space-y-4">
           <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-muted-foreground">

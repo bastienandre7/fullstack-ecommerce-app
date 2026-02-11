@@ -94,7 +94,6 @@ export function AddProductForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-1 lg:grid-cols-12 gap-16"
       >
-        {/* Colonne Gauche : Essential Details & Images */}
         <div className="lg:col-span-7 space-y-12">
           <section className="space-y-6">
             <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
