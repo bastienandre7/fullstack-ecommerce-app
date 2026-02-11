@@ -71,10 +71,8 @@ export async function POST(req: Request) {
       },
     });
 
-    // 2. Mise à jour des stocks et alertes
     const updateStockPromises = order.orderItems.map(async (item) => {
       if (item.variantId) {
-        // On met à jour et on récupère la variante avec son nom de produit
         const updatedVariant = await prisma.variant.update({
           where: { id: item.variantId },
           data: {

@@ -72,7 +72,6 @@ export default async function ProductDetailsPage({ params }: Props) {
   return (
     <div className="bg-white min-h-screen">
       <div className="container mx-auto pt-40 pb-32 px-6">
-        {/* Breadcrumb minimaliste */}
         <Link
           href="/#collection"
           className="group inline-flex items-center text-[10px] font-bold uppercase tracking-[0.3em] mb-12 text-muted-foreground hover:text-foreground transition-colors"
@@ -82,7 +81,6 @@ export default async function ProductDetailsPage({ params }: Props) {
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 xl:gap-24 items-start">
-          {/* Galerie Image (Prend 7 colonnes) */}
           <div className="lg:col-span-7">
             <ProductGallery
               images={serializedProduct.images}
@@ -90,7 +88,6 @@ export default async function ProductDetailsPage({ params }: Props) {
             />
           </div>
 
-          {/* Infos Produit (Prend 5 colonnes) */}
           <div className="lg:col-span-5 flex flex-col lg:sticky lg:top-28">
             <div className="space-y-8 mb-8">
               <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-muted-foreground">
@@ -107,7 +104,6 @@ export default async function ProductDetailsPage({ params }: Props) {
 
             <Separator className="mb-10" />
 
-            {/* Variant Selector & CTA */}
             <div className="mb-12">
               <VariantSelector
                 variants={serializedVariants}
@@ -115,10 +111,8 @@ export default async function ProductDetailsPage({ params }: Props) {
               />
             </div>
 
-            {/* Accordion ou Simple section Description */}
             <div className="border-t border-gray-200 mt-10">
               <Accordion type="single" collapsible className="w-full">
-                {/* SECTION DESCRIPTION */}
                 <AccordionItem
                   value="description"
                   className="border-b border-gray-100"
@@ -135,7 +129,6 @@ export default async function ProductDetailsPage({ params }: Props) {
                   </AccordionContent>
                 </AccordionItem>
 
-                {/* SECTION SHIPPING & DETAILS */}
                 <AccordionItem
                   value="shipping"
                   className="border-b border-gray-100"
@@ -147,7 +140,6 @@ export default async function ProductDetailsPage({ params }: Props) {
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="space-y-6 pb-6 pt-2">
-                      {/* Global Express Shipping */}
                       <div className="flex items-center gap-4 group">
                         <div className="flex items-center justify-center w-8 h-8 rounded-full border border-gray-100 group-hover:bg-black group-hover:text-white transition-colors">
                           <Truck className="h-3 w-3" strokeWidth={1.5} />
@@ -162,7 +154,6 @@ export default async function ProductDetailsPage({ params }: Props) {
                         </div>
                       </div>
 
-                      {/* Returns */}
                       <div className="flex items-center gap-4 group">
                         <div className="flex items-center justify-center w-8 h-8 rounded-full border border-gray-100 group-hover:bg-black group-hover:text-white transition-colors">
                           <RefreshCw className="h-3 w-3" strokeWidth={1.5} />
@@ -180,7 +171,6 @@ export default async function ProductDetailsPage({ params }: Props) {
                   </AccordionContent>
                 </AccordionItem>
 
-                {/* SECTION AUTHENTICITY */}
                 <AccordionItem value="authenticity" className="border-none">
                   <AccordionTrigger className="hover:no-underline py-6">
                     <span className="text-[10px] font-bold uppercase tracking-[0.3em]">

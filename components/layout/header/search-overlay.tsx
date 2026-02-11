@@ -66,7 +66,6 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[600px]">
-        {/* Header masqué visuellement mais présent pour l'accessibilité */}
         <DialogHeader className="sr-only">
           <DialogTitle>Recherche de produits</DialogTitle>
           <DialogDescription>

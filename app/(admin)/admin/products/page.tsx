@@ -9,7 +9,6 @@ export default async function AdminProductsPage() {
 
   return (
     <div className="space-y-12 animate-in fade-in duration-1000">
-      {/* Header */}
       <div className="flex justify-between items-end border-b border-gray-100 pb-8">
         <div className="space-y-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-muted-foreground">
@@ -27,7 +26,6 @@ export default async function AdminProductsPage() {
         </Link>
       </div>
 
-      {/* Grid Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>

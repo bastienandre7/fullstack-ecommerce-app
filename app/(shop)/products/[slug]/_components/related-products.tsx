@@ -1,4 +1,3 @@
-// app/(shop)/products/[slug]/_components/related-products.tsx
 import { ProductCard } from "@/components/ui/product-card";
 import { getRelatedProducts } from "@/lib/actions/products";
 

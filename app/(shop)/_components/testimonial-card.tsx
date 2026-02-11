@@ -1,4 +1,3 @@
-// components/home/testimonial-card.tsx
 import { Star } from "lucide-react";
 
 interface TestimonialProps {
@@ -17,7 +16,6 @@ export function TestimonialCard({
   return (
     <div className="h-full flex flex-col justify-between items-start text-left select-none p-0">
       <div className="space-y-4">
-        {/* Stars - discrètes et alignées à gauche */}
         <div className="flex gap-1">
           {[...Array(5)].map((_, i) => (
             <Star
@@ -29,13 +27,11 @@ export function TestimonialCard({
           ))}
         </div>
 
-        {/* Content - Typographie inspirée de la capture (plus d'italique, plus direct) */}
         <blockquote className="text-xl md:text-2xl font-medium leading-[1.2] text-black uppercase tracking-tight">
           &quot;{content}&quot;
         </blockquote>
       </div>
 
-      {/* Footer - Identique au style de la capture (End of season) */}
       <div className="mt-8 pt-4 border-t border-black/10 w-full">
         <p className="font-bold uppercase text-[11px] tracking-widest text-black">
           {name}

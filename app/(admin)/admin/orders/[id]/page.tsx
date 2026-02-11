@@ -21,7 +21,6 @@ export default async function OrderDetailPage({
 
   return (
     <div className="space-y-16 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-      {/* Navigation & Status Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 border-b border-gray-100 pb-10">
         <div className="space-y-4">
           <Link
@@ -59,7 +58,6 @@ export default async function OrderDetailPage({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
-        {/* Left: Line Items */}
         <div className="lg:col-span-8 space-y-10">
           <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] flex items-center gap-2">
             <Package size={14} /> Manifest Items
@@ -82,35 +80,31 @@ export default async function OrderDetailPage({
                   </div>
                 </div>
                 <p className="text-sm font-bold tracking-tighter">
-                  €{(Number(item.price) * item.quantity).toFixed(2)}
+                  ${(Number(item.price) * item.quantity).toFixed(2)}
                 </p>
               </div>
             ))}
           </div>
 
-          {/* Footer: Detailed Pricing */}
           <div className="flex justify-end pt-4">
             <div className="w-full sm:w-64 space-y-3">
-              {/* Subtotal (Somme des items uniquement) */}
               <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                 <span>Subtotal</span>
-                <span>€{total.toFixed(2)}</span>
+                <span>${total.toFixed(2)}</span>
               </div>
 
-              {/* Shipping (Le champ de ton nouveau schéma) */}
               <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                 <span>Shipping & Handling</span>
                 <span>
                   {order.shippingCost > 0
-                    ? `€${order.shippingCost.toFixed(2)}`
+                    ? `$${order.shippingCost.toFixed(2)}`
                     : "FREE"}
                 </span>
               </div>
 
-              {/* Total Final (Le montant prélevé sur Stripe) */}
               <div className="flex justify-between text-xl font-medium pt-4 border-t border-gray-100 text-black">
                 <span className="uppercase tracking-tighter italic">Total</span>
-                <span>€{order.totalPrice.toFixed(2)}</span>
+                <span>${order.totalPrice.toFixed(2)}</span>
               </div>
 
               <p className="text-[8px] font-bold uppercase tracking-tighter text-muted-foreground text-right">
@@ -120,9 +114,7 @@ export default async function OrderDetailPage({
           </div>
         </div>
 
-        {/* Right: Logistics & Customer */}
         <div className="lg:col-span-4 space-y-12">
-          {/* Customer Profile */}
           <section className="space-y-6">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground flex items-center gap-2">
               <User size={14} /> Identity
@@ -140,7 +132,6 @@ export default async function OrderDetailPage({
             </div>
           </section>
 
-          {/* Delivery Details */}
           <section className="space-y-6">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground flex items-center gap-2">
               <MapPin size={14} /> Shipping Registry
@@ -165,7 +156,6 @@ export default async function OrderDetailPage({
             </div>
           </section>
 
-          {/* Additional Info */}
           <section className="pt-8 border-t border-gray-100">
             <div className="flex items-center gap-2 text-muted-foreground italic text-[10px] tracking-widest uppercase">
               <Hash size={12} /> Digital Receipt Verified

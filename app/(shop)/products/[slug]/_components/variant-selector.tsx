@@ -1,9 +1,8 @@
 "use client";
 
-import { ProductVariant } from "@/app/(admin)/admin/products/[productId]/_components/edit-product-form";
 import { AddToCartButton } from "@/app/(shop)/products/[slug]/_components/add-to-cart-button";
 import { cn } from "@/lib/utils";
-import { CartItem } from "@/types";
+import { CartItem, ProductVariant } from "@/types";
 import { useMemo, useState } from "react";
 
 interface VariantSelectorProps {
@@ -17,17 +16,14 @@ interface VariantSelectorProps {
 }
 
 export function VariantSelector({ variants, product }: VariantSelectorProps) {
-  // Vérifier si le produit a des tailles
   const hasSizes = useMemo(() => {
     return variants.some((v) => v.size && v.size.trim() !== "");
   }, [variants]);
 
-  // 1. On définit la variante par défaut (première en stock) directement à l'initialisation
   const defaultVariant = useMemo(() => {
     return variants.find((v) => (v.stock ?? 0) > 0) || null;
   }, [variants]);
 
-  // 2. Initialisation des états sans useEffect pour éviter les rendus en cascade
   const [selectedColor, setSelectedColor] = useState<string | null>(
     defaultVariant?.color ?? null,
   );
@@ -35,7 +31,6 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
     defaultVariant,
   );
 
-  // 3. Mémos pour la structure des options
   const uniqueColors = useMemo(() => {
     const colors = variants.filter((v) => v.color && v.colorCode);
     return Array.from(
@@ -49,14 +44,12 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
     );
   }, [variants]);
 
-  // Helper pour vérifier si une couleur est en stock (pour produits sans taille)
   const isColorInStock = (color: string) => {
-    if (hasSizes) return true; // Si le produit a des tailles, on gère ça différemment
+    if (hasSizes) return true;
     const variant = variants.find((v) => v.color === color);
     return variant && (variant.stock ?? 0) > 0;
   };
 
-  // 4. Helper pour trouver une variante spécifique selon la couleur actuelle
   const findVariant = (size: string) => {
     if (!selectedColor) return null;
     return (
@@ -80,7 +73,6 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
 
   return (
     <div className="space-y-10">
-      {/* Sélecteur de Couleurs */}
       <div className="space-y-4">
         <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.2em]">
           <span className="text-gray-500">Color</span>
@@ -95,17 +87,16 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
               <button
                 key={v.id}
                 type="button"
+                aria-label="Color Select"
                 disabled={!hasSizes && !colorInStock}
                 onClick={() => {
                   setSelectedColor(color);
                   if (!hasSizes) {
-                    // Produit sans taille : sélectionner directement la variante de cette couleur
                     const variant = variants.find(
                       (varnt) => varnt.color === color,
                     );
                     setSelectedVariant(variant || null);
                   } else {
-                    // Produit avec tailles : auto-sélection de la première taille dispo dans cette couleur
                     const firstSizeInColor = variants.find(
                       (varnt) =>
                         varnt.color === color && (varnt.stock ?? 0) > 0,
@@ -126,7 +117,6 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
                   style={{ backgroundColor: v.colorCode || "transparent" }}
                 />
 
-                {/* Croix diagonale pour les couleurs en rupture de stock (produits sans taille) */}
                 {!hasSizes && !colorInStock && (
                   <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                     <svg
@@ -145,7 +135,6 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
         </div>
       </div>
 
-      {/* Sélecteur de Tailles - N'afficher que si le produit a des tailles */}
       {hasSizes && (
         <div className="space-y-4">
           <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.2em]">
@@ -176,7 +165,6 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
                       "opacity-60 cursor-not-allowed bg-gray-50 text-gray-400 border-gray-200",
                   )}
                 >
-                  {/* Texte de la taille */}
                   <span
                     className={cn(
                       "relative z-10",
@@ -186,7 +174,6 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
                     {size}
                   </span>
 
-                  {/* Croix Diagonale Haute-Visibilité */}
                   {!isAvailable && (
                     <div className="absolute inset-0 z-0 pointer-events-none">
                       <svg
@@ -218,7 +205,6 @@ export function VariantSelector({ variants, product }: VariantSelectorProps) {
         </div>
       )}
 
-      {/* Action de Panier */}
       <div className="pt-6">
         <AddToCartButton item={cartItem} disabled={!isReady} />
         {!isReady && (

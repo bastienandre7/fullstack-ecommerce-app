@@ -1,12 +1,21 @@
-// types/index.ts
 export interface CartItem {
-  id: string; // ID unique (ex: productId-variantId)
+  id: string;
   productId: string;
-  variantId: string; // Crucial pour Stripe et les stocks
-  name: string; // Nom formaté (ex: "T-shirt - Noir / L")
+  variantId: string;
+  name: string;
   price: number;
   image: string;
   quantity: number;
+}
+
+export interface ProductWithExtras {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  images: { url: string }[];
+  category: { name: string } | string;
+  variants?: { size: string }[];
 }
 
 export interface ProductVariant {
@@ -17,12 +26,27 @@ export interface ProductVariant {
   price: number | null;
   stock: number;
 }
-export interface ProductWithExtras {
+
+export interface ProductImage {
+  id?: string;
+  url: string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+}
+
+export interface Product {
   id: string;
   name: string;
   slug: string;
+  description: string;
   price: number;
-  images: { url: string }[];
-  category: { name: string } | string;
-  variants?: { size: string }[]; // Optionnel pour extraire les tailles
+  categoryId: string;
+  category?: Category;
+  images: ProductImage[];
+  isFeatured: boolean;
+  variants: ProductVariant[];
+  createdAt: Date;
 }

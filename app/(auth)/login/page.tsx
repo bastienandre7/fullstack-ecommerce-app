@@ -1,9 +1,9 @@
-"use client"; // On passe en client pour gérer l'état local
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle2, Loader2, Mail } from "lucide-react";
-import { signIn } from "next-auth/react"; // Utilisation de la version client
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -35,7 +35,6 @@ export default function SignInPage() {
   return (
     <div className="relative min-h-screen w-full flex flex-col items-center justify-center px-6">
       <div className="mx-auto flex w-full flex-col justify-center space-y-8 sm:w-[380px]">
-        {/* Header dynamique */}
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-3xl font-medium tracking-tight text-black">
             {isSubmitted ? "Check your inbox" : "Welcome back"}
@@ -49,7 +48,6 @@ export default function SignInPage() {
 
         {!isSubmitted ? (
           <div className="grid gap-6">
-            {/* Social Auth */}
             <div className="grid grid-cols-2 gap-3">
               <Button
                 variant="outline"
@@ -90,20 +88,19 @@ export default function SignInPage() {
               </div>
             </div>
 
-            {/* Magic Link Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  id="email" // Ajouté
-                  name="email" // Ajouté
+                  id="email"
+                  name="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
                   required
                   disabled={isLoading}
-                  autoComplete="email" // LA CLÉ : indique au navigateur de suggérer les emails
+                  autoComplete="email"
                   className="pl-11 h-12 rounded-full border-gray-200 bg-gray-50/50 focus:bg-white transition-all"
                 />
               </div>
@@ -121,7 +118,6 @@ export default function SignInPage() {
             </form>
           </div>
         ) : (
-          /* SUCCESS STATE - Évite la page moche de NextAuth */
           <div className="flex flex-col items-center justify-center space-y-4 animate-in fade-in zoom-in duration-500">
             <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center">
               <CheckCircle2 className="h-8 w-8 text-black" />

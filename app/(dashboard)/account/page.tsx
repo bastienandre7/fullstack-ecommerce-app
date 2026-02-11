@@ -10,7 +10,6 @@ export default async function DashboardOverview() {
 
   if (!user) redirect("/auth/signin");
 
-  // 2. Logique de calcul extraite du JSX
   const totalSpent = orders
     .filter((order) => order.isPaid)
     .reduce(
@@ -28,7 +27,6 @@ export default async function DashboardOverview() {
 
   return (
     <div className="space-y-16 animate-in fade-in duration-700">
-      {/* Header Section */}
       <div className="space-y-2">
         <h1 className="text-4xl font-medium uppercase tracking-tighter text-black">
           Welcome, {user?.name?.split(" ")[0] || user?.email}
@@ -38,7 +36,6 @@ export default async function DashboardOverview() {
         </p>
       </div>
 
-      {/* Stat Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100 border border-gray-100">
         <div className="bg-white p-8 space-y-4">
           <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
@@ -62,9 +59,7 @@ export default async function DashboardOverview() {
         </div>
       </div>
 
-      {/* Recent Activity & Settings */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-8">
-        {/* Recent Order Preview */}
         <div className="space-y-6">
           <div className="flex items-center justify-between border-b border-gray-100 pb-4">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em]">
@@ -111,7 +106,6 @@ export default async function DashboardOverview() {
           )}
         </div>
 
-        {/* Account Details Shortcut */}
         <div className="space-y-6">
           <div className="flex items-center justify-between border-b border-gray-100 pb-4">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em]">

@@ -25,7 +25,7 @@ export async function getDashboardStats() {
     include: { orderItems: true },
   });
 
-  const revenueCents = paidOrders.reduce((total, order) => {
+  const revenue = paidOrders.reduce((total, order) => {
     return (
       total +
       order.orderItems.reduce(
@@ -36,6 +36,7 @@ export async function getDashboardStats() {
   }, 0);
 
   const monthlyRevenue: { [key: string]: number } = {};
+
   for (const order of paidOrders) {
     const month = order.createdAt.toLocaleString("fr-FR", { month: "short" });
     const orderAmount = order.orderItems.reduce(
@@ -46,12 +47,12 @@ export async function getDashboardStats() {
   }
 
   return {
-    revenue: revenueCents / 100,
+    revenue, // ✅ Déjà en dollars
     totalOrders: paidOrders.length,
     totalUsers: await prisma.user.count(),
     graphData: Object.entries(monthlyRevenue).map(([name, total]) => ({
       name,
-      total: total / 100,
+      total, // ✅ Déjà en dollars
     })),
   };
 }

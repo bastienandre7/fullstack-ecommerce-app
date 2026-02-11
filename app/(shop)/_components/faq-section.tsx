@@ -1,4 +1,3 @@
-// components/home/faq-section.tsx
 import {
   Accordion,
   AccordionContent,
@@ -34,7 +33,6 @@ export function FaqSection() {
   return (
     <section className="bg-white py-32 border-t border-gray-100">
       <div className="container mx-auto px-6 max-w-3xl">
-        {/* Title Section - Style Magazine */}
         <div className="text-center mb-24 space-y-4">
           <h2 className="text-5xl md:text-7xl font-medium uppercase tracking-tighter text-black leading-none">
             Common <span className="text-gray-300 italic">Inquiries</span>
@@ -42,7 +40,6 @@ export function FaqSection() {
           <div className="h-[1px] w-12 bg-black mx-auto" />
         </div>
 
-        {/* Accordion Logic - Net et sans bordures lourdes */}
         <Accordion type="single" collapsible className="w-full space-y-4">
           {FAQ_ITEMS.map((item, index) => (
             <AccordionItem
@@ -60,7 +57,6 @@ export function FaqSection() {
           ))}
         </Accordion>
 
-        {/* CTA Footer - Minimaliste */}
         <div className="mt-24 pt-12 border-t border-gray-100 flex flex-col items-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400 mb-8">
             Still need assistance?
@@ -71,7 +67,6 @@ export function FaqSection() {
           >
             <Mail className="w-4 h-4" />
             Contact Customer Care
-            <div className="w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full" />
           </a>
         </div>
       </div>

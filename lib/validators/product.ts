@@ -20,7 +20,5 @@ export const ProductSchema = z.object({
   variants: z.array(VariantSchema).default([]),
 });
 
-// Utilisez z.input pour le formulaire (avant transformation)
 export type ProductFormInput = z.input<typeof ProductSchema>;
-// Utilisez z.output pour les données validées (après transformation)
 export type ProductFormValues = z.output<typeof ProductSchema>;

@@ -1,4 +1,3 @@
-// hooks/use-cart-drawer.ts
 import { create } from "zustand";
 
 interface UseCartDrawerStore {

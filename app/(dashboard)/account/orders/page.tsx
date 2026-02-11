@@ -4,7 +4,6 @@ import { format } from "date-fns";
 import { ExternalLink, Package } from "lucide-react";
 import Link from "next/link";
 
-// Helper pour mapper les labels de statut
 const STATUS_LABELS = {
   UNPAID: "Payment Pending",
   PREPARING: "In Studio",
@@ -19,7 +18,6 @@ export default async function OrdersPage() {
 
   return (
     <div className="space-y-16">
-      {/* Header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-medium uppercase tracking-tighter text-black">
           Order History
@@ -46,7 +44,6 @@ export default async function OrdersPage() {
         <div className="divide-y divide-gray-200">
           {orders.map((order) => (
             <div key={order.id} className="py-12 group">
-              {/* Meta Info & Status Tracker */}
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 mb-10">
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
@@ -58,12 +55,10 @@ export default async function OrdersPage() {
                     </span>
                   </div>
 
-                  {/* Minimalist Status Tracker */}
                   <div className="flex items-center gap-6">
                     {["PREPARING", "SHIPPED", "DELIVERED"].map(
                       (step, idx, arr) => {
                         const isCurrent = order.status === step;
-                        // Logique pour savoir si l'étape est passée
                         const statusOrder = [
                           "UNPAID",
                           "PREPARING",
@@ -111,14 +106,12 @@ export default async function OrdersPage() {
                     Summary
                   </p>
 
-                  {/* Détail Shipping si existant */}
                   {order.shippingCost > 0 && (
                     <p className="text-[10px] font-medium uppercase text-muted-foreground">
                       Shipping: €{order.shippingCost.toFixed(2)}
                     </p>
                   )}
 
-                  {/* Montant Total Final */}
                   <p className="text-2xl font-light italic tracking-tight text-black">
                     €{order.totalPrice.toFixed(2)}
                   </p>
@@ -129,7 +122,6 @@ export default async function OrdersPage() {
                 </div>
               </div>
 
-              {/* Items List */}
               <div className="space-y-4">
                 {order.orderItems.map((item) => (
                   <div
@@ -158,7 +150,6 @@ export default async function OrdersPage() {
                 ))}
               </div>
 
-              {/* Footer: Tracking & Address */}
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div className="flex gap-4">
                   {order.address && (

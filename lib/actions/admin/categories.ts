@@ -36,7 +36,7 @@ export async function adminDeleteCategory(id: string) {
 
     if (productsCount > 0) {
       return {
-        error: `Impossible de supprimer : ${productsCount} produit(s) sont encore liés à cette catégorie.`,
+        error: `Cannot delete : ${productsCount} product(s) are still linked to this category.`,
       };
     }
 
@@ -50,6 +50,6 @@ export async function adminDeleteCategory(id: string) {
     return { success: true };
   } catch (err) {
     console.error("[DELETE_CATEGORY_ERROR]", err);
-    return { error: "Erreur lors de la suppression de la catégorie" };
+    return { error: "Error deleting category" };
   }
 }

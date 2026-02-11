@@ -1,4 +1,3 @@
-// components/store/product-card.tsx
 import { formatPrice } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,12 +6,12 @@ export interface ProductCardProps {
   id: string;
   name: string;
   slug: string;
-  price: number; // En centimes (ex: 5000)
+  price: number;
   category:
     | {
         name: string;
       }
-    | string; // Gère l'objet Prisma ou une string simple
+    | string;
   images: { url: string }[];
   variants?: {
     id: string;
@@ -32,11 +31,9 @@ export function ProductCard({
   const mainImageUrl = images[0]?.url;
   const hoverImageUrl = images.length > 1 ? images[1]?.url : null;
 
-  // Extraction du nom de la catégorie (objet ou string)
   const categoryName =
     typeof category === "string" ? category : category?.name || "Collection";
 
-  // On filtre les tailles disponibles (stock > 0)
   const availableVariants = variants.filter((v) => v.stock > 0 && v.size);
 
   return (
@@ -50,7 +47,6 @@ export function ProductCard({
             src={mainImageUrl}
             alt={name}
             fill
-            // Ajout du prop sizes
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className={`object-cover p-10 transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${
               hoverImageUrl
@@ -70,7 +66,6 @@ export function ProductCard({
           />
         )}
 
-        {/* SECTION TAILLES */}
         {availableVariants.length > 0 && (
           <div className="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-20">
             <div className="flex flex-wrap justify-center gap-2">

@@ -44,10 +44,10 @@ export async function updateProfile(values: { name?: string; email?: string }) {
     });
 
     revalidatePath("/account");
-    return { success: "Profil mis à jour" };
+    return { success: "Updated profile" };
   } catch (error) {
     console.error("[UPDATE_PROFILE_ERROR]", error);
-    return { error: "Erreur lors de la mise à jour" };
+    return { error: "Error updating profile" };
   }
 }
 
@@ -55,7 +55,7 @@ export async function deleteAccount() {
   const session = await auth();
 
   if (!session?.user?.id) {
-    return { error: "Non autorisé" };
+    return { error: "Unauthorized" };
   }
 
   try {
@@ -68,6 +68,6 @@ export async function deleteAccount() {
     return { success: true };
   } catch (error) {
     console.error("[DELETE_ACCOUNT_ERROR]", error);
-    return { error: "Erreur lors de la suppression du compte" };
+    return { error: "Error deleting account" };
   }
 }

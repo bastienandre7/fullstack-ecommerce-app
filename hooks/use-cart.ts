@@ -14,14 +14,11 @@ interface CartStore {
 
 export const useCart = create<CartStore>()(
   persist(
-    // 'persist' sauvegarde le panier dans le localStorage automatiquement
     (set, get) => ({
       items: [],
 
-      // lib/store/use-cart.ts
       addItem: (product) => {
         const currentItems = get().items;
-        // L'ID ici est déjà "productId-variantId" venant de ton VariantSelector
         const existingItem = currentItems.find(
           (item) => item.id === product.id,
         );
@@ -35,7 +32,6 @@ export const useCart = create<CartStore>()(
             ),
           });
         } else {
-          // On s'assure que quantity est au moins 1 si elle n'est pas définie
           set({
             items: [
               ...currentItems,
@@ -50,14 +46,12 @@ export const useCart = create<CartStore>()(
         const existingItem = currentItems.find((item) => item.id === id);
 
         if (existingItem && existingItem.quantity > 1) {
-          // Si quantité > 1, on réduit de 1
           set({
             items: currentItems.map((item) =>
               item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
             ),
           });
         } else {
-          // Si quantité = 1, on supprime l'article
           set({ items: currentItems.filter((item) => item.id !== id) });
         }
       },
@@ -74,6 +68,6 @@ export const useCart = create<CartStore>()(
       totalPrice: () =>
         get().items.reduce((acc, item) => acc + item.price * item.quantity, 0),
     }),
-    { name: "cart-storage" }, // Nom de la clé dans le localStorage
+    { name: "cart-storage" },
   ),
 );

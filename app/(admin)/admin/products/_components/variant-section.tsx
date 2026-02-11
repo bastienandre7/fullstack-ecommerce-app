@@ -119,11 +119,9 @@ export function VariantSection({
                   {isMinimal ? "HEX Code" : "Hex Code"}
                 </label>
                 <div className="flex gap-2">
-                  {/* Input type COLOR */}
                   <Input
                     type="color"
                     {...register(`variants.${index}.colorCode`)}
-                    // Force la mise à jour immédiate pour l'autre input
                     onChange={(e) => {
                       setValue(`variants.${index}.colorCode`, e.target.value, {
                         shouldValidate: true,
@@ -132,10 +130,8 @@ export function VariantSection({
                     className={`w-8 h-8 ${isMinimal ? "p-0 border-none bg-transparent" : "p-0.5 border-gray-200"} cursor-pointer rounded-none`}
                   />
 
-                  {/* Input type TEXT */}
                   <Input
                     {...register(`variants.${index}.colorCode`)}
-                    // Force la mise à jour immédiate pour le sélecteur de couleur
                     onChange={(e) => {
                       setValue(`variants.${index}.colorCode`, e.target.value, {
                         shouldValidate: true,

@@ -17,7 +17,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // Lors de la connexion, on injecte les données Prisma dans le token
       if (user) {
         const dbUser = await prisma.user.findUnique({
           where: { email: user.email! },
@@ -30,7 +29,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      // On transfère les données du token vers la session accessible côté client/serveur
       if (token && session.user) {
         session.user.role = token.role as string;
         session.user.id = token.id as string;

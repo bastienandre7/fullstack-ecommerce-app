@@ -24,7 +24,6 @@ export default async function EditUserPage({
 
   return (
     <div className="max-w-3xl mx-auto space-y-12 animate-in fade-in duration-1000">
-      {/* Header */}
       <header className="space-y-4 border-b border-gray-100 pb-8">
         <Link
           href="/admin/users"
@@ -38,7 +37,6 @@ export default async function EditUserPage({
       </header>
 
       <form action={handleUpdate} className="space-y-16">
-        {/* Section 01: Identity */}
         <section className="space-y-8">
           <div className="flex items-center gap-3 border-b border-black pb-2">
             <UserIcon size={14} />
@@ -70,7 +68,6 @@ export default async function EditUserPage({
           </div>
         </section>
 
-        {/* Section 02: Access Control */}
         <section className="space-y-8">
           <div className="flex items-center gap-3 border-b border-black pb-2">
             <ShieldCheck size={14} />
@@ -94,7 +91,6 @@ export default async function EditUserPage({
           </div>
         </section>
 
-        {/* Section 03: Activity Info */}
         <section className="space-y-4 pt-4 text-[10px] text-muted-foreground font-mono uppercase tracking-tighter border-t border-gray-50">
           <div className="flex justify-between">
             <span>Registration Date</span>
@@ -112,7 +108,6 @@ export default async function EditUserPage({
           </div>
         </section>
 
-        {/* Action Button */}
         <button
           type="submit"
           className="w-full h-14 bg-black text-white hover:bg-zinc-800 transition-colors uppercase text-[10px] font-bold tracking-[0.4em]"

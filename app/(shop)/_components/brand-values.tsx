@@ -1,4 +1,3 @@
-// components/home/brand-values.tsx
 import { Globe, RefreshCcw, ShieldCheck, Truck } from "lucide-react";
 
 const VALUES = [

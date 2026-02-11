@@ -4,21 +4,21 @@ import { Button } from "@/components/ui/button";
 import { adminDeleteProduct } from "@/lib/actions/admin/products";
 import { Trash } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner"; // Ou ta bibliothèque de notifications
+import { toast } from "sonner";
 
 export function DeleteProductButton({ id }: { id: string }) {
   const [loading, setLoading] = useState(false);
 
   const onDelete = async () => {
-    if (!confirm("Es-tu sûr de vouloir supprimer ce produit ?")) return;
+    if (!confirm("Are you sure you want to delete this product?")) return;
 
     setLoading(true);
     const result = await adminDeleteProduct(id);
 
     if (result.success) {
-      toast.success("Produit supprimé");
+      toast.success("Product deleted successfully");
     } else {
-      toast.error("Erreur lors de la suppression");
+      toast.error("Error deleting product");
     }
     setLoading(false);
   };

@@ -12,7 +12,6 @@ export default function ProfileView({ initialData }: ProfileViewProps) {
   return (
     <div className="space-y-12 max-w-2xl">
       <div className="grid grid-cols-1 gap-12">
-        {/* FULL NAME */}
         <div className="flex flex-col border-b border-gray-100 pb-4">
           <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">
             Identity Name
@@ -22,7 +21,6 @@ export default function ProfileView({ initialData }: ProfileViewProps) {
           </span>
         </div>
 
-        {/* EMAIL ADDRESS */}
         <div className="flex flex-col border-b border-gray-100 pb-4">
           <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">
             Email Contact
@@ -32,7 +30,6 @@ export default function ProfileView({ initialData }: ProfileViewProps) {
           </span>
         </div>
 
-        {/* CREATED AT */}
         <div className="flex flex-col border-b border-gray-100 pb-4">
           <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">
             Member Since
@@ -49,7 +46,6 @@ export default function ProfileView({ initialData }: ProfileViewProps) {
         </div>
       </div>
 
-      {/* Note d'information optionnelle */}
       <p className="text-[10px] text-muted-foreground uppercase tracking-tight leading-relaxed">
         To update your primary security information, please contact our support
         team.

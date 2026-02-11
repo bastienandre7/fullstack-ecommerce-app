@@ -17,12 +17,10 @@ export const Logo = ({ className, variant = "black" }: LogoProps) => {
       )}
     >
       <div className="flex flex-col items-start leading-none">
-        {/* Prism : Texte stable */}
         <span className="text-2xl md:text-3xl font-medium tracking-[0.3em] uppercase">
           Prism
         </span>
 
-        {/* Ligne et Studio : Opacité fixe pour un look constant */}
         <div className="flex items-center w-full mt-1.5">
           <div
             className={cn(

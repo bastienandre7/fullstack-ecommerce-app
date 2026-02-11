@@ -48,7 +48,7 @@ export function AuthButtons() {
           aria-label="Open user menu"
           className="outline-none focus:ring-0 transition-opacity hover:opacity-80"
         >
-          <Avatar className="h-8 w-8 border border-gray-100">
+          <Avatar className="h-8 w-8 border border-muted-foreground">
             <AvatarImage
               src={session.user?.image || ""}
               alt={session.user?.name || "User"}
@@ -82,7 +82,6 @@ export function AuthButtons() {
         </div>
 
         <div className="p-2">
-          {/* SECTION ADMIN CONDITIONNELLE */}
           {isAdmin && (
             <>
               <DropdownMenuItem

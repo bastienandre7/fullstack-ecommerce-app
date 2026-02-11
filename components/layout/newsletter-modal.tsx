@@ -1,4 +1,3 @@
-// components/layout/newsletter-modal.tsx
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -30,7 +29,6 @@ export function NewsletterModal() {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Overlay sombre */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -39,7 +37,6 @@ export function NewsletterModal() {
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]"
           />
 
-          {/* Modal */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -48,7 +45,7 @@ export function NewsletterModal() {
           >
             <button
               onClick={closeNewsletter}
-              className="absolute top-6 right-6 text-gray-400 hover:text-black transition-colors"
+              className="absolute top-6 right-6 text-muted-foreground hover:text-black transition-colors"
             >
               <X className="h-4 w-4" strokeWidth={1} />
             </button>

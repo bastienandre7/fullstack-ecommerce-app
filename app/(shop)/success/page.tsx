@@ -9,19 +9,18 @@ export default function SuccessPage() {
   const clearCart = useCart((state) => state.clearCart);
 
   useEffect(() => {
-    clearCart(); // Wipes the cart immediately on mount
+    clearCart();
   }, [clearCart]);
+
   return (
     <div className="min-h-[100vh] flex flex-col items-center justify-center px-6 animate-in fade-in duration-1000">
       <div className="max-w-md w-full text-center space-y-12">
-        {/* Icon / Mark */}
         <div className="flex justify-center">
           <div className="w-16 h-16 border border-black flex items-center justify-center rounded-full">
             <Check size={30} strokeWidth={1.5} className="text-black" />
           </div>
         </div>
 
-        {/* Narrative */}
         <div className="space-y-4">
           <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-500">
             Transaction Verified
@@ -35,7 +34,6 @@ export default function SuccessPage() {
           </p>
         </div>
 
-        {/* Technical Summary / Next Steps */}
         <div className="pt-8 space-y-6">
           <div className="flex flex-col gap-3">
             <Link
@@ -48,7 +46,7 @@ export default function SuccessPage() {
               href="/"
               className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500 hover:text-black transition-all"
             >
-              Return to Gallery
+              Return to Home
             </Link>
           </div>
 

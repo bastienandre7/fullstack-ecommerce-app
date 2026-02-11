@@ -6,13 +6,12 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      role: UserRole; // Ici il peut être obligatoire car on l'injecte nous-mêmes
+      role: UserRole;
     } & DefaultSession["user"];
   }
 
-  // C'est ici qu'il faut être prudent
   interface User {
-    role?: UserRole; // Rends-le optionnel avec le '?' pour ne pas casser l'adaptateur
+    role?: UserRole;
   }
 }
 

@@ -37,7 +37,7 @@ export async function getAdminProductById(id: string) {
 export async function adminCreateProduct(values: ProductFormValues) {
   await checkAdminStatus();
   const validatedFields = ProductSchema.safeParse(values);
-  if (!validatedFields.success) return { error: "Données invalides" };
+  if (!validatedFields.success) return { error: "Invalid data" };
 
   const { name, description, price, isFeatured, categoryId, images, variants } =
     validatedFields.data;
@@ -72,10 +72,10 @@ export async function adminCreateProduct(values: ProductFormValues) {
     });
 
     revalidatePath("/admin/products");
-    return { success: "Produit créé avec succès" };
+    return { success: "Product created successfully" };
   } catch (error) {
     console.error("[PRODUCT_CREATE_ERROR]:", error);
-    return { error: "Une erreur est survenue lors de la création" };
+    return { error: "An error occurred while creating the product" };
   }
 }
 
@@ -85,7 +85,7 @@ export async function adminUpdateProduct(
 ) {
   await checkAdminStatus();
   const validatedFields = ProductSchema.safeParse(values);
-  if (!validatedFields.success) return { error: "Champs invalides" };
+  if (!validatedFields.success) return { error: "Invalid fields" };
 
   const { name, description, price, isFeatured, categoryId, images, variants } =
     validatedFields.data;
@@ -128,7 +128,7 @@ export async function adminUpdateProduct(
     return { success: true };
   } catch (error) {
     console.error("[UPDATE_PRODUCT_ERROR]", error);
-    return { error: "Erreur lors de la mise à jour" };
+    return { error: "Error updating product" };
   }
 }
 
@@ -143,6 +143,6 @@ export async function adminDeleteProduct(id: string) {
     return { success: true };
   } catch (error) {
     console.error(error);
-    return { success: false, error: "Erreur lors de la suppression" };
+    return { success: false, error: "Error deleting product" };
   }
 }

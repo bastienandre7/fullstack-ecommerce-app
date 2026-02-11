@@ -5,7 +5,6 @@ const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
 const EMAIL_FROM = "Prism Studio <onboarding@resend.dev>";
 const ADMIN_EMAIL = "bloomtpl@gmail.com";
 
-// Style commun pour tous les mails (CSS inline pour compatibilité Gmail)
 const headStyle =
   "font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;";
 const logoStyle =

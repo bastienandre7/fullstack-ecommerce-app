@@ -7,13 +7,13 @@ import { TestimonialsCarousel } from "@/app/(shop)/_components/testimonials-caro
 
 export default function Home() {
   return (
-    <main>
+    <div>
       <HeroSection />
       <AllProducts />
       <BrandValues />
       <TestimonialsCarousel />
       <AboutSection />
       <FaqSection />
-    </main>
+    </div>
   );
 }

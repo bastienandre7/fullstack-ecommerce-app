@@ -5,9 +5,9 @@ import { useCart } from "@/hooks/use-cart";
 import { useCartDrawer } from "@/hooks/use-cart-drawer";
 import { cn, formatPrice } from "@/lib/utils";
 import { ArrowRight, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
-import { useSession } from "next-auth/react"; // Import session
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Import router
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -16,8 +16,8 @@ export function CartContent({
 }: {
   isSideSheet?: boolean;
 }) {
-  const { data: session } = useSession(); // Récupère la session
-  const router = useRouter(); // Initialise le router
+  const { data: session } = useSession();
+  const router = useRouter();
   const cartDrawer = useCartDrawer();
 
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,6 @@ export function CartContent({
     useCart();
 
   const onCheckout = async () => {
-    // 1. Vérification de l'authentification
     if (!session) {
       toast.info("Please login to proceed to checkout");
       if (isSideSheet) {
@@ -77,7 +76,6 @@ export function CartContent({
           isSideSheet ? "px-6 py-4" : "grid grid-cols-1 lg:grid-cols-12 gap-16",
         )}
       >
-        {/* Liste des items */}
         <div
           className={cn(isSideSheet ? "space-y-6" : "lg:col-span-8 space-y-12")}
         >
@@ -135,7 +133,6 @@ export function CartContent({
           ))}
         </div>
 
-        {/* Résumé (Fixé en bas si SideSheet) */}
         <div
           className={cn(
             isSideSheet

@@ -1,4 +1,3 @@
-// components/layout/header/header.tsx
 "use client";
 
 import { AuthButtons } from "@/components/layout/header/auth-buttons";

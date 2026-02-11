@@ -7,7 +7,7 @@ export async function getUserOrders() {
   const session = await auth();
 
   if (!session?.user?.id) {
-    throw new Error("Vous devez être connecté pour voir vos commandes");
+    throw new Error("You must be logged in to view your orders.");
   }
 
   return await prisma.order.findMany({

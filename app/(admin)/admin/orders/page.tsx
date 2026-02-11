@@ -9,7 +9,6 @@ export default async function AdminOrdersPage() {
 
   return (
     <div className="space-y-12 animate-in fade-in duration-1000">
-      {/* Header */}
       <div className="flex justify-between items-end border-b border-gray-100 pb-8">
         <div className="space-y-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-muted-foreground">
@@ -29,7 +28,6 @@ export default async function AdminOrdersPage() {
         </div>
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
@@ -78,11 +76,11 @@ export default async function AdminOrdersPage() {
 
                   <td className="py-8 text-right">
                     <div className="text-[11px] font-bold tracking-tighter text-black">
-                      €{order.totalPrice.toFixed(2)}
+                      ${order.totalPrice.toFixed(2)}
                     </div>
                     {order.shippingCost > 0 && (
                       <div className="text-[8px] text-gray-400 uppercase tracking-tighter">
-                        Incl. €{order.shippingCost.toFixed(2)} shipping
+                        Incl. ${order.shippingCost.toFixed(2)} shipping
                       </div>
                     )}
                   </td>

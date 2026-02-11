@@ -1,9 +1,5 @@
 "use client";
 
-import {
-  adminCreateCategory,
-  getCategories,
-} from "@/lib/actions/admin/categories";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,6 +9,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import {
+  adminCreateCategory,
+  getCategories,
+} from "@/lib/actions/admin/categories";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -42,7 +42,7 @@ export function CategoryDialog({
       onCategoryCreated(res.category.id);
       onOpenChange(false);
       setNewCatName("");
-      toast.success("Catégorie créée !");
+      toast.success("Category created !");
     }
   };
 

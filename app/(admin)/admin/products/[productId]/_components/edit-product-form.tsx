@@ -24,43 +24,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Category, Product } from "@/types";
 
-// Typage strict pour l'objet product reçu en props
-export interface ProductVariant {
-  id?: string;
-  size: string | null;
-  color: string | null;
-  colorCode: string | null;
-  price: number | null;
-  stock: number;
-}
-
-export interface ProductImage {
-  id?: string;
-  url: string;
-}
-
-export interface ProductWithAllRelations {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  categoryId: string;
-  images: ProductImage[];
-  isFeatured: boolean;
-  variants: ProductVariant[];
-}
-
-interface Category {
-  id: string;
-  name: string;
-}
-
-export function EditProductForm({
-  product,
-}: {
-  product: ProductWithAllRelations;
-}) {
+export function EditProductForm({ product }: { product: Product }) {
   const router = useRouter();
   const [categories, setCategories] = useState<Category[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -68,7 +34,7 @@ export function EditProductForm({
   useEffect(() => {
     getCategories()
       .then(setCategories)
-      .catch(() => toast.error("Erreur lors du chargement des catégories"));
+      .catch(() => toast.error("Error loading categories"));
   }, []);
 
   const form = useForm<ProductFormInput>({
@@ -102,7 +68,7 @@ export function EditProductForm({
     const result = ProductSchema.safeParse(formattedData);
 
     if (!result.success) {
-      toast.error("Données invalides", { id: toastId });
+      toast.error("Invalid data", { id: toastId });
       return;
     }
 
@@ -111,7 +77,7 @@ export function EditProductForm({
     if (res.error) {
       toast.error(res.error, { id: toastId });
     } else {
-      toast.success("Produit mis à jour !", { id: toastId });
+      toast.success("Updated product !", { id: toastId });
       router.push("/admin/products");
       router.refresh();
     }
@@ -119,7 +85,6 @@ export function EditProductForm({
 
   return (
     <div className="max-w-[1200px] mx-auto px-6 py-12 animate-in fade-in duration-1000">
-      {/* Header Minimaliste */}
       <header className="flex justify-between items-end border-b border-gray-100 pb-10 mb-16">
         <div className="space-y-4">
           <Link
@@ -138,9 +103,7 @@ export function EditProductForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-1 lg:grid-cols-12 gap-20"
       >
-        {/* Colonne Gauche : Creative & Story */}
         <div className="lg:col-span-7 space-y-20">
-          {/* Identité */}
           <section className="space-y-8">
             <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
               01. Identity
@@ -213,7 +176,6 @@ export function EditProductForm({
             </div>
           </section>
 
-          {/* Asset Gallery */}
           <ImageSection
             control={form.control}
             register={form.register}
@@ -221,7 +183,6 @@ export function EditProductForm({
           />
         </div>
 
-        {/* Colonne Droite : Inventory Control */}
         <div className="lg:col-span-5">
           <VariantSection
             control={form.control}
@@ -233,7 +194,6 @@ export function EditProductForm({
         </div>
       </form>
 
-      {/* Category Dialog */}
       <CategoryDialog
         isOpen={isDialogOpen}
         onOpenChange={setIsDialogOpen}

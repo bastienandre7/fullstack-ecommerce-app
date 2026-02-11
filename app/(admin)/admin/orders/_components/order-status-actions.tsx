@@ -20,11 +20,9 @@ export function OrderStatusActions({
   const [loading, setLoading] = useState(false);
   const [tracking, setTracking] = useState(currentTracking || "");
 
-  // Dans le composant OrderStatusActions
   const onStatusChange = async (newStatus: OrderStatus) => {
     try {
       setLoading(true);
-      // On passe 'tracking' en 3ème argument ici aussi
       await updateOrderStatus(orderId, newStatus, tracking);
       toast.success(`Order status updated to ${newStatus.toLowerCase()}`);
     } catch (error) {
@@ -38,7 +36,6 @@ export function OrderStatusActions({
   const saveTracking = async () => {
     try {
       setLoading(true);
-      // Ici on garde le statut actuel mais on envoie le nouveau tracking
       await updateOrderStatus(orderId, currentStatus, tracking);
       toast.success("Tracking number archived");
     } catch (error) {
@@ -51,7 +48,6 @@ export function OrderStatusActions({
 
   return (
     <div className="flex flex-col gap-3 min-w-[160px]">
-      {/* Selector */}
       <div className="relative">
         <select
           disabled={loading}
@@ -70,7 +66,6 @@ export function OrderStatusActions({
         )}
       </div>
 
-      {/* Input Tracking - Only if SHIPPED or PREPARING */}
       {(currentStatus === "SHIPPED" || currentStatus === "PREPARING") && (
         <div className="flex items-center gap-2 animate-in fade-in slide-in-from-top-1 duration-300">
           <input

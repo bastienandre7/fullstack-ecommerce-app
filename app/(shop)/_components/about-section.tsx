@@ -1,4 +1,3 @@
-// components/home/about-section.tsx
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +7,6 @@ export function AboutSection() {
     <section className="bg-white py-32 overflow-hidden border-t border-gray-100">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          {/* Left Side: Clean Editorial Image */}
           <div className="relative">
             <div className="relative aspect-[3/4] w-full overflow-hidden bg-gray-100">
               <Image
@@ -19,7 +17,6 @@ export function AboutSection() {
                 quality={100}
               />
             </div>
-            {/* Petit détail discret au lieu du sticker agressif */}
             <div className="absolute bottom-6 left-6">
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white bg-black/20 backdrop-blur-md px-4 py-2">
                 Est. 2026
@@ -27,7 +24,6 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Right Side: Narrative Copy */}
           <div className="flex flex-col items-start space-y-10">
             <div className="space-y-4">
               <h2 className="text-5xl md:text-7xl font-medium uppercase leading-[0.95] tracking-tight text-black">
@@ -52,7 +48,7 @@ export function AboutSection() {
 
             <div className="pt-4">
               <Link
-                href="/our-story"
+                href="#"
                 className="group flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-black"
               >
                 Read Our Manifesto

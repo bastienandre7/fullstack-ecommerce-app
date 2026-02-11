@@ -7,35 +7,51 @@ import { usePathname } from "next/navigation";
 interface AccountNavLinkProps {
   href: string;
   label: string;
-  icon: React.ReactNode; // On accepte du JSX directement
+  icon: React.ReactNode;
+  mobile?: boolean;
 }
 
-export function AccountNavLink({ href, label, icon }: AccountNavLinkProps) {
+export function AccountNavLink({
+  href,
+  label,
+  icon,
+  mobile = false,
+}: AccountNavLinkProps) {
   const pathname = usePathname();
-  const isActive =
-    pathname === href || (href !== "/account" && pathname.startsWith(href));
+  const isActive = pathname === href;
+
+  if (mobile) {
+    return (
+      <Link
+        href={href}
+        className={cn(
+          "flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 text-xs font-medium transition-colors relative min-w-[80px]",
+          "border-b-2 -mb-[2px]",
+          isActive
+            ? "text-black border-black"
+            : "text-gray-500 border-transparent hover:text-gray-900 active:bg-gray-50",
+        )}
+      >
+        <span className={cn("transition-transform", isActive && "scale-110")}>
+          {icon}
+        </span>
+        <span className="whitespace-nowrap">{label}</span>
+      </Link>
+    );
+  }
 
   return (
     <Link
       href={href}
       className={cn(
-        "group flex items-center px-3 py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-all relative",
+        "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
         isActive
           ? "bg-gray-100 text-black"
-          : "text-muted-foreground hover:text-black hover:bg-gray-50/50",
+          : "text-gray-600 hover:bg-gray-50 hover:text-black",
       )}
     >
-      {isActive && <div className="absolute left-0 w-[2px] h-4 bg-black" />}
-
-      <span
-        className={cn(
-          "mr-4 transition-opacity",
-          isActive ? "opacity-100" : "opacity-50 group-hover:opacity-100",
-        )}
-      >
-        {icon}
-      </span>
-      {label}
+      {icon}
+      <span>{label}</span>
     </Link>
   );
 }

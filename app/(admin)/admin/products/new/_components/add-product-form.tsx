@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { getCategories } from "@/lib/actions/admin/categories";
 import { adminCreateProduct } from "@/lib/actions/admin/products";
 import { ProductFormInput, ProductSchema } from "@/lib/validators/product";
+import { Category } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -25,15 +26,13 @@ import { toast } from "sonner";
 
 export function AddProductForm() {
   const router = useRouter();
-  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
-    [],
-  );
+  const [categories, setCategories] = useState<Category[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     getCategories()
       .then(setCategories)
-      .catch(() => toast.error("Erreur catégories"));
+      .catch(() => toast.error("Error loading categories"));
   }, []);
 
   const form = useForm<ProductFormInput>({
@@ -68,7 +67,7 @@ export function AddProductForm() {
     if (res.error) {
       toast.error(res.error);
     } else {
-      toast.success("Produit créé !");
+      toast.success("Product created!");
       router.push("/admin/products");
       router.refresh();
     }
@@ -170,7 +169,6 @@ export function AddProductForm() {
           <ImageSection control={form.control} register={form.register} />
         </div>
 
-        {/* Colonne Droite : Variants & Technical Specs */}
         <div className="lg:col-span-5">
           <VariantSection
             control={form.control}
@@ -181,7 +179,6 @@ export function AddProductForm() {
         </div>
       </form>
 
-      {/* Category Dialog */}
       <CategoryDialog
         isOpen={isDialogOpen}
         onOpenChange={setIsDialogOpen}

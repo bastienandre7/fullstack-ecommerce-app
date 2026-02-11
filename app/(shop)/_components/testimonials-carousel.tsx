@@ -1,4 +1,3 @@
-// components/home/testimonials-carousel.tsx
 "use client";
 
 import {
@@ -76,7 +75,6 @@ export function TestimonialsCarousel() {
             ))}
           </CarouselContent>
 
-          {/* Contrôles minimalistes */}
           <div className="flex justify-center gap-6 mt-16">
             <CarouselPrevious className="static translate-y-0 h-12 w-12 border border-gray-200 bg-white text-black rounded-full hover:bg-black hover:text-white transition-all shadow-none" />
             <CarouselNext className="static translate-y-0 h-12 w-12 border border-gray-200 bg-white text-black rounded-full hover:bg-black hover:text-white transition-all shadow-none" />

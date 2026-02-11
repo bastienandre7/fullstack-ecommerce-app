@@ -4,11 +4,11 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  type CarouselApi, // Import du type pour l'API
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import * as React from "react"; // Ajout pour le state
+import * as React from "react";
 
 export function ProductGallery({
   images,
@@ -20,7 +20,6 @@ export function ProductGallery({
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
 
-  // On écoute le changement de slide
   React.useEffect(() => {
     if (!api) return;
 
@@ -33,7 +32,6 @@ export function ProductGallery({
 
   return (
     <div className="w-full">
-      {/* DESKTOP – COLONNE */}
       <div className="hidden md:flex flex-col gap-8">
         {images.map((img, index) => (
           <div
@@ -52,9 +50,7 @@ export function ProductGallery({
         ))}
       </div>
 
-      {/* MOBILE – SHADCN CAROUSEL */}
       <div className="md:hidden">
-        {/* On passe setApi au composant Carousel */}
         <Carousel setApi={setApi} className="w-full">
           <CarouselContent className="ml-0">
             {images.map((img, index) => (
@@ -72,12 +68,11 @@ export function ProductGallery({
             ))}
           </CarouselContent>
 
-          {/* Indicateurs avec état actif */}
           <div className="flex justify-center gap-2 mt-4">
             {images.map((_, i) => (
               <button
                 key={i}
-                onClick={() => api?.scrollTo(i)} // Optionnel : rend les points cliquables
+                onClick={() => api?.scrollTo(i)}
                 className={cn(
                   "h-1.5 w-1.5 rounded-full transition-all duration-300",
                   current === i ? "bg-black w-4" : "bg-gray-200",
