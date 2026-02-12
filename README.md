@@ -66,75 +66,218 @@ A modern, full-featured e-commerce platform built with **Next.js 16**, **TypeScr
 - OAuth credentials (Google, Apple - optional)
 - Resend API key (for email notifications - optional)
 
-### Installation
+### Quick Start
 
-1. **Clone and Install Dependencies**
+#### 01 — Download & Extract
+
+Download the PRISM template and extract the files to your local machine.
+
+```
+Extract the downloaded ZIP file to your desired location.
+```
+
+#### 02 — Open in VS Code
+
+Open the project folder in Visual Studio Code.
+
+```bash
+code .
+```
+
+#### 03 — Install Dependencies
+
+Install all required packages using npm.
 
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
 ```
 
-2. **Configure Environment Variables**
+#### 04 — Create Environment File
 
-Create a `.env.local` file in the root directory:
-
-```env
-# Database
-DATABASE_URL="postgresql://user:password@localhost:5432/ecommerce"
-
-# NextAuth.js
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key-here"
-
-# OAuth Providers
-GOOGLE_ID=your_google_id
-GOOGLE_SECRET=your_google_secret
-APPLE_ID=your_apple_id
-APPLE_TEAM_ID=your_apple_team_id
-APPLE_KEY_ID=your_apple_key_id
-APPLE_PRIVATE_KEY=your_apple_private_key
-
-# Email Service (Resend)
-RESEND_API_KEY="your_resend_api_key"
-EMAIL_FROM="noreply@yourdomain.com"
-
-# Stripe
-STRIPE_SECRET_KEY="sk_test_..."
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_..."
-STRIPE_WEBHOOK_SECRET="whsec_..."
-
-# App Config
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-```
-
-3. **Set Up Database**
+Copy the example environment file to get started.
 
 ```bash
-# Generate Prisma client
-npx prisma generate
-
-# Run migrations
-npx prisma migrate dev
-
-# Optional: Seed database with sample data
-npx prisma db seed
+cp .env.example .env.local
 ```
 
-4. **Start Development Server**
+This creates your `.env.local` file. You'll configure it in the next steps.
+
+---
+
+### Database Setup
+
+#### 01 — Initialize Prisma
+
+Run the initialization command. You will be prompted to log in to Prisma, select a server region, and name your project.
+
+```bash
+npx prisma init --db
+```
+
+> **Post-Initialization:** After the command finishes, specific instructions and your **Database URL** will appear in your terminal. Copy this URL immediately.
+
+#### 02 — Configure Database URL
+
+Paste your Database URL into your `.env.local` file. Ensure the SSL mode is present at the end.
+
+```env
+# Important: Ensure the SSL mode is present at the end
+DATABASE_URL="postgres://user:password@host:port/dbname?sslmode=require"
+```
+
+> **Important:** If you are using a cloud provider like Neon or Supabase, omitting `?sslmode=require` will likely cause connection timeouts.
+
+#### 03 — Sync & Generate
+
+Push the schema to your database and generate the Prisma Client.
+
+```bash
+# Push schema to database
+npx prisma migrate dev
+
+# Generate local types
+npx prisma generate
+```
+
+---
+
+### Authentication Setup
+
+> **Pro Tips:** Start with Email (Resend) authentication only. Social providers can be added later as you scale. The app will work perfectly with just Resend configured.
+
+#### 01 — Generate Auth Secret
+
+Run this to generate your session encryption key.
+
+```bash
+npx auth secret
+```
+
+This command will generate an `AUTH_SECRET` value. Copy it to your `.env.local` file.
+
+#### 02 — Magic Links Email Auth
+
+Email authentication via Resend (passwordless login).
+
+1. Create an API Key at [resend.com](https://resend.com)
+2. Set `RESEND_API_KEY` in your `.env.local`
+3. Use `onboarding@resend.dev` as `EMAIL_FROM` for instant testing
+
+```env
+AUTH_SECRET="your-generated-secret"
+RESEND_API_KEY="re_..."
+EMAIL_FROM="onboarding@resend.dev"
+
+# NEXTAUTH Variables
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-generated-secret"
+```
+
+> **Note:** When using the onboarding email, you can only send magic links to the email address associated with your Resend account.
+
+#### 03 — Protected Routes
+
+Routes protected by NextAuth.js middleware.
+
+- `/admin/*` - Requires ADMIN role
+- `/account/*` - Requires authentication
+- `/checkout` - Requires authentication
+
+#### 04 — OPTIONAL: Social Providers
+
+Add Google and Apple OAuth for enhanced user experience (optional, add later as you scale).
+
+##### Google OAuth
+
+1. Go to [console.cloud.google.com](https://console.cloud.google.com)
+2. Create a new project
+3. Enable Google+ API
+4. Create OAuth 2.0 credentials (Web application)
+5. Add Redirect URI: `YOUR_URL/api/auth/callback/google`
+
+##### Apple OAuth
+
+1. Register in [developer.apple.com](https://developer.apple.com)
+2. Create App ID with "Sign in with Apple" capability
+3. Create a Service ID
+4. Create a private key for authentication
+5. Add Redirect URI: `YOUR_URL/api/auth/callback/apple`
+
+```env
+# Required for Social Login
+AUTH_GOOGLE_ID="your_google_id"
+AUTH_GOOGLE_SECRET="your_google_secret"
+
+AUTH_APPLE_ID="your_apple_id"
+AUTH_APPLE_TEAM_ID="your_apple_team_id"
+AUTH_APPLE_KEY_ID="your_apple_key_id"
+AUTH_APPLE_PRIVATE_KEY="your_apple_private_key"
+```
+
+#### 05 — Test Authentication
+
+Start the development server and test your auth setup.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Go to `http://localhost:3000` and test the login via email. Sign in using your Resend account email to verify everything is working.
+
+---
+
+### Stripe Configuration
+
+#### 01 — Stripe Keys
+
+Add your Stripe API keys from the dashboard.
+
+```env
+# Get these from Stripe Dashboard > Developers > API Keys
+STRIPE_SECRET_KEY="sk_test_..."
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_..."
+```
+
+#### 02 — Webhooks Local Development
+
+Listen to Stripe events locally using the Stripe CLI. This updates your database upon payment.
+
+1. Install Stripe CLI from [stripe.com/docs/stripe-cli](https://stripe.com/docs/stripe-cli)
+2. Run the webhook forwarding command:
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhook/stripe
+```
+
+> **Copy the Webhook Secret:** The CLI will output a `whsec_...` key. Copy this into your `.env.local` as `STRIPE_WEBHOOK_SECRET`
+
+```env
+STRIPE_WEBHOOK_SECRET="whsec_..."
+```
+
+> **Note:** Use `/webhook/stripe` (singular) as the endpoint. Keep the CLI running while you test locally.
+
+#### 03 — Webhook Setup Production
+
+Configure Stripe webhooks to receive payment events in production.
+
+1. Go to Stripe Dashboard > Developers > Webhooks
+2. Click "Add an endpoint" and enter: `https://yourdomain.com/api/webhook/stripe`
+3. Select events: `payment_intent.succeeded`
+4. Copy the webhook secret to `STRIPE_WEBHOOK_SECRET` in production `.env`
+
+#### 04 — Payment Flow
+
+How payments are processed in your store.
+
+1. Customer adds products to cart
+2. Checkout button creates Stripe session
+3. User redirected to Stripe hosted checkout
+4. Payment processed by Stripe
+5. Webhook confirms payment
+6. Order status updated, receipt generated
+7. Confirmation email sent
+8. User redirected to success page
 
 ## 📁 Project Structure
 
