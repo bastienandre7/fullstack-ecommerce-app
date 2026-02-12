@@ -67,7 +67,7 @@ model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@unique([identifier, token])
   @@map("verification_tokens")
 }
@@ -82,7 +82,7 @@ model Image {
   id        String   @id @default(uuid())
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url       String   // L'URL de l'image (Cloudinary, Uploadthing, S3)
+  url       String
   order     Int      @default(0)
   createdAt DateTime @default(now())
 }
@@ -107,27 +107,23 @@ model Variant {
   id        String   @id @default(uuid())
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  
-  size      String?  // ex: "S", "M", "L"
-  color     String?  // ex: "Noir", "Blanc"
-  colorCode String?  // ex: "#000000" (pour les pastilles)
-  
-  price     Int? // Optionnel : si une variante est plus chère
+  size      String?
+  color     String?
+  colorCode String?
+  price     Int?
   stock     Int      @default(0)
-
   orderItems OrderItem[]
-  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 enum OrderStatus {
-  UNPAID      // Panier abandonné ou échec Stripe
-  PREPARING   // Payé, en cours de préparation au studio
-  SHIPPED     // Expédié, numéro de suivi généré
-  DELIVERED   // Reçu par l'acquéreur
-  ARCHIVED    // Commande terminée et classée
-  CANCELLED   // Annulée ou remboursée
+  UNPAID   
+  PREPARING
+  SHIPPED
+  DELIVERED
+  ARCHIVED
+  CANCELLED
 }
 
 model Order {
@@ -136,19 +132,13 @@ model Order {
   user            User        @relation(fields: [userId], references: [id])
   isPaid          Boolean     @default(false)
   status          OrderStatus @default(UNPAID)
-  
-  // Nouveau : Pour stocker les frais de port et le montant total Stripe
   shippingCost    Float       @default(0)
   totalPrice      Float       @default(0)
-
   stripeSessionId String?     @unique 
-  
   phone           String      @default("")
   address         String      @default("")
-
   receiptUrl      String?
   trackingNumber  String?
-  
   orderItems      OrderItem[]
   createdAt       DateTime    @default(now())
 }
@@ -159,15 +149,11 @@ model OrderItem {
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId String
   product   Product @relation(fields: [productId], references: [id])
-  
-  // AJOUTE CES DEUX LIGNES : Le cœur du problème
   variantId String? 
   variant   Variant? @relation(fields: [variantId], references: [id])
-
   quantity  Int     @default(1)
   price     Decimal 
-
   @@index([orderId])
   @@index([productId])
-  @@index([variantId]) // Optionnel : bon pour les performances
+  @@index([variantId])
 }
