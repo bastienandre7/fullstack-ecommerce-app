@@ -76,7 +76,9 @@ export default function RootLayout({
         <SessionProvider>
           <Header />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <div style={{ minHeight: "600px" }}>
+            <Footer />
+          </div>
           <NewsletterModal />
           <Toaster
             position="bottom-right"
