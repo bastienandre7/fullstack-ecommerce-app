@@ -47,7 +47,7 @@ export function HeroSection() {
               className="w-full sm:w-auto h-14 px-10 text-[11px] font-bold rounded-none border-white/30 bg-white/5 backdrop-blur-md text-white hover:bg-white hover:text-black hover:border-white uppercase tracking-[0.2em] transition-all"
             >
               <a
-                href="https://bloomtpl.com/nextjs-templates"
+                href="https://bloomtpl.com/nextjs-templates/prism-premium-nextjs-16-e-commerce-starter-kit-stripe-and-prisma"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2"
