@@ -1,283 +1,71 @@
-# E-Commerce Starter Kit - PRISM
+# PRISM — E-Commerce Platform
 
-A modern, full-featured e-commerce platform built with **Next.js 16**, **TypeScript**, **React 19**, **Tailwind CSS**, **Stripe**, and **PostgreSQL**. This starter kit provides a production-ready foundation for building digital storefronts with authentication, product management, shopping cart, and payment processing.
+A production-ready e-commerce platform I built to demonstrate full-stack development expertise. This personal project showcases a complete shopping experience with authentication, payment processing, admin dashboard, and order management using modern web technologies.
 
-## ✨ Features
+## 🎯 About the Project
 
-### 🛍️ Shopping Features
+PRISM is a comprehensive e-commerce application I developed to explore the complete lifecycle of online retail—from product browsing to payment processing. The goal was to create a scalable, production-ready platform that handles real-world e-commerce challenges including inventory management, secure payments, user authentication, and admin operations.
 
-- **Product Catalog** - Browse products by categories with detailed product pages
-- **Product Variants** - Support for size, color, and custom variants with individual pricing and stock tracking
-- **Shopping Cart** - Client-side cart management with persistent state using Zustand
-- **Product Search** - Search overlay for quick product discovery
-- **Image Gallery** - Multi-image product gallery with Carousel support
-- **Related Products** - Intelligent product recommendations
+## ✨ Features Implemented
 
-### 👤 Authentication & Users
+### 🛍️ Shopping Experience
 
-- **Multi-Provider Auth** - Sign in with Google, Apple, or Email (via Resend)
-- **NextAuth.js v5** - Secure session management with JWT strategy
-- **User Dashboard** - Account management, order history, and profile settings
-- **Role-Based Access** - Admin and User roles with protected routes
+- Complete product catalog with category filtering
+- Product variants (size, color, custom options) with individual pricing
+- Real-time shopping cart with persistent state using Zustand
+- Advanced search functionality with overlay interface
+- Multi-image product galleries with carousel navigation
+- Intelligent product recommendation system
 
-### 💳 Payment Processing
+### 🔐 Authentication & User Management
 
-- **Stripe Integration** - Complete payment processing and checkout flow
-- **Order Management** - Create, track, and manage orders
-- **Receipt URLs** - Automatic receipt generation via Stripe
-- **Order Status Tracking** - Real-time order status with shipping information
-- **Webhook Support** - Stripe webhook handling for payment events
+- Multi-provider authentication (Google, Apple, Email)
+- Secure session management with NextAuth.js v5
+- Passwordless magic link authentication via Resend
+- User dashboard with order history and profile management
+- Role-based access control (Admin/User)
+- Protected routes with middleware
+
+### 💳 Payment & Orders
+
+- Complete Stripe integration for payment processing
+- Secure checkout flow with hosted payment pages
+- Real-time order tracking and status updates
+- Automatic receipt generation
+- Stripe webhook handling for payment events
+- Order confirmation emails
 
 ### 🏪 Admin Dashboard
 
-- **Product Management** - Create, edit, and delete products with variants
-- **Category Management** - Organize products by categories
-- **Order Management** - View and manage customer orders
-- **User Management** - Monitor and manage user accounts
-- **Dashboard Analytics** - Overview charts and statistics
-- **Image Management** - Upload and organize product images
-
-### 🎨 UI & UX
-
-- **Modern Design** - Clean, responsive interface with Tailwind CSS
-- **Dark Mode Support** - Theme switching with next-themes
-- **Radix UI Components** - Accessible, composable UI components
-  - Accordion, Avatar, Badge, Button, Card, Carousel
-  - Dialog, Dropdown Menu, Form Fields, Label, Select
-  - Separator, Sheet, Switch, Table
-- **Toast Notifications** - Real-time feedback with Sonner
-- **Email Notifications** - Order confirmations via Resend
-- **Smooth Animations** - Motion animations for enhanced UX
-
-### 📊 Database & Data
-
-- **PostgreSQL** - Robust relational database
-- **Prisma ORM** - Type-safe database access
-- **Comprehensive Schema** - Users, Products, Orders, Variants, Categories, Images
-- **Migrations** - Pre-configured migrations for all features
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js 18+ and npm/yarn/pnpm
-- PostgreSQL database
-- Stripe account (for payment processing)
-- OAuth credentials (Google, Apple - optional)
-- Resend API key (for email notifications - optional)
-
-### Quick Start
-
-#### 01 — Download & Extract
-
-Download the PRISM template and extract the files to your local machine.
-
-```
-Extract the downloaded ZIP file to your desired location.
-```
-
-#### 02 — Open in VS Code
-
-Open the project folder in Visual Studio Code.
-
-```bash
-code .
-```
-
-#### 03 — Install Dependencies
-
-Install all required packages using npm.
-
-```bash
-npm install
-```
-
-#### 04 — Create Environment File
-
-Copy the example environment file to get started.
-
-```bash
-cp .env.example .env.local
-```
-
-This creates your `.env.local` file. You'll configure it in the next steps.
-
----
-
-### Database Setup
-
-#### 01 — Initialize Prisma
-
-Run the initialization command. You will be prompted to log in to Prisma, select a server region, and name your project.
-
-```bash
-npx prisma init --db
-```
-
-> **Post-Initialization:** After the command finishes, specific instructions and your **Database URL** will appear in your terminal. Copy this URL immediately.
-
-#### 02 — Configure Database URL
-
-Paste your Database URL into your `.env.local` file. Ensure the SSL mode is present at the end.
-
-```env
-# Important: Ensure the SSL mode is present at the end
-DATABASE_URL="postgres://user:password@host:port/dbname?sslmode=require"
-```
-
-> **Important:** If you are using a cloud provider like Neon or Supabase, omitting `?sslmode=require` will likely cause connection timeouts.
-
-#### 03 — Sync & Generate
-
-Push the schema to your database and generate the Prisma Client.
-
-```bash
-# Push schema to database
-npx prisma migrate dev
-
-# Generate local types
-npx prisma generate
-```
-
----
-
-### Authentication Setup
-
-> **Pro Tips:** Start with Email (Resend) authentication only. Social providers can be added later as you scale. The app will work perfectly with just Resend configured.
-
-#### 01 — Generate Auth Secret
-
-Run this to generate your session encryption key.
-
-```bash
-npx auth secret
-```
-
-This command will generate an `AUTH_SECRET` value. Copy it to your `.env.local` file.
-
-#### 02 — Magic Links Email Auth
-
-Email authentication via Resend (passwordless login).
-
-1. Create an API Key at [resend.com](https://resend.com)
-2. Set `RESEND_API_KEY` in your `.env.local`
-3. Use `onboarding@resend.dev` as `EMAIL_FROM` for instant testing
-
-```env
-AUTH_SECRET="your-generated-secret"
-RESEND_API_KEY="re_..."
-EMAIL_FROM="onboarding@resend.dev"
-
-# NEXTAUTH Variables
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-generated-secret"
-```
-
-> **Note:** When using the onboarding email, you can only send magic links to the email address associated with your Resend account.
-
-#### 03 — Protected Routes
-
-Routes protected by NextAuth.js middleware.
-
-- `/admin/*` - Requires ADMIN role
-- `/account/*` - Requires authentication
-- `/checkout` - Requires authentication
-
-#### 04 — OPTIONAL: Social Providers
-
-Add Google and Apple OAuth for enhanced user experience (optional, add later as you scale).
-
-##### Google OAuth
-
-1. Go to [console.cloud.google.com](https://console.cloud.google.com)
-2. Create a new project
-3. Enable Google+ API
-4. Create OAuth 2.0 credentials (Web application)
-5. Add Redirect URI: `YOUR_URL/api/auth/callback/google`
-
-##### Apple OAuth
-
-1. Register in [developer.apple.com](https://developer.apple.com)
-2. Create App ID with "Sign in with Apple" capability
-3. Create a Service ID
-4. Create a private key for authentication
-5. Add Redirect URI: `YOUR_URL/api/auth/callback/apple`
-
-```env
-# Required for Social Login
-AUTH_GOOGLE_ID="your_google_id"
-AUTH_GOOGLE_SECRET="your_google_secret"
-
-AUTH_APPLE_ID="your_apple_id"
-AUTH_APPLE_TEAM_ID="your_apple_team_id"
-AUTH_APPLE_KEY_ID="your_apple_key_id"
-AUTH_APPLE_PRIVATE_KEY="your_apple_private_key"
-```
-
-#### 05 — Test Authentication
-
-Start the development server and test your auth setup.
-
-```bash
-npm run dev
-```
-
-Go to `http://localhost:3000` and test the login via email. Sign in using your Resend account email to verify everything is working.
-
----
-
-### Stripe Configuration
-
-#### 01 — Stripe Keys
-
-Add your Stripe API keys from the dashboard.
-
-```env
-# Get these from Stripe Dashboard > Developers > API Keys
-STRIPE_SECRET_KEY="sk_test_..."
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_..."
-```
-
-#### 02 — Webhooks Local Development
-
-Listen to Stripe events locally using the Stripe CLI. This updates your database upon payment.
-
-1. Install Stripe CLI from [stripe.com/docs/stripe-cli](https://stripe.com/docs/stripe-cli)
-2. Run the webhook forwarding command:
-
-```bash
-stripe listen --forward-to localhost:3000/api/webhook/stripe
-```
-
-> **Copy the Webhook Secret:** The CLI will output a `whsec_...` key. Copy this into your `.env.local` as `STRIPE_WEBHOOK_SECRET`
-
-```env
-STRIPE_WEBHOOK_SECRET="whsec_..."
-```
-
-> **Note:** Use `/webhook/stripe` (singular) as the endpoint. Keep the CLI running while you test locally.
-
-#### 03 — Webhook Setup Production
-
-Configure Stripe webhooks to receive payment events in production.
-
-1. Go to Stripe Dashboard > Developers > Webhooks
-2. Click "Add an endpoint" and enter: `https://yourdomain.com/api/webhook/stripe`
-3. Select events: `payment_intent.succeeded`
-4. Copy the webhook secret to `STRIPE_WEBHOOK_SECRET` in production `.env`
-
-#### 04 — Payment Flow
-
-How payments are processed in your store.
-
-1. Customer adds products to cart
-2. Checkout button creates Stripe session
-3. User redirected to Stripe hosted checkout
-4. Payment processed by Stripe
-5. Webhook confirms payment
-6. Order status updated, receipt generated
-7. Confirmation email sent
-8. User redirected to success page
+- Comprehensive product management (CRUD operations)
+- Product variant management with stock tracking
+- Category organization and management
+- Order management and tracking system
+- User account monitoring
+- Analytics dashboard with charts and statistics
+- Image upload and management system
+
+### 🎨 UI & Design System
+
+- Modern, responsive interface with Tailwind CSS v4
+- Accessible component library using Radix UI
+- Toast notifications for real-time feedback
+- Smooth animations and transitions
+- Mobile responsive design
+
+### 🛠 Tech Stack
+
+- **Framework**: Next.js 16.1 with App Router
+- **Library**: React 19
+- **Styling**: Tailwind CSS v4
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js v5
+- **Payments**: Stripe
+- **State Management**: Zustand
+- **Form Handling**: React Hook Form + Zod
+- **Email**: Resend
+- **UI Components**: Radix UI
+- **Charts**: Recharts
 
 ## 📁 Project Structure
 
@@ -336,127 +124,101 @@ e-commerce/
 └── package.json
 ```
 
-## 🔧 Key Technologies
+## 🎨 Technical Highlights
 
-| Technology          | Version       | Purpose                         |
-| ------------------- | ------------- | ------------------------------- |
-| **Next.js**         | 16.1.4        | React framework with App Router |
-| **React**           | 19.2.3        | UI library                      |
-| **TypeScript**      | 5             | Type safety                     |
-| **Tailwind CSS**    | 4             | Styling                         |
-| **Prisma**          | 7.3.0         | ORM & Database                  |
-| **NextAuth.js**     | 5.0.0-beta.30 | Authentication                  |
-| **Stripe**          | 20.2.0        | Payment processing              |
-| **Radix UI**        | 1.4.3         | Accessible components           |
-| **Zustand**         | 5.0.10        | State management                |
-| **React Hook Form** | 7.71.1        | Form handling                   |
-| **Zod**             | 4.3.6         | Data validation                 |
-| **Resend**          | 6.9.1         | Email service                   |
-| **Recharts**        | 3.7.0         | Charts & graphs                 |
+### Database Design
+Comprehensive PostgreSQL schema with:
 
-## 📊 Database Schema
+- User - Authentication and profiles
+- Product - Core product information
+- Variant - Product options (size, color, custom)
+- Category - Product organization
+- Image - Multi-image support
+- Order - Order tracking
+- OrderItem - Line items with variants
 
-The project includes these core models:
+### Authentication Flow
 
-- **User** - Authentication & profile information
-- **Product** - Product details with pricing
-- **Variant** - Product variants (size, color, custom options)
-- **Category** - Product categorization
-- **Image** - Multi-image support per product
-- **Order** - Customer orders with status tracking
-- **OrderItem** - Individual items in orders
-- **Account** - OAuth provider data
-- **Session** - User session management
-- **VerificationToken** - Email verification
+- Multi-provider sign-in (Google, Apple, Magic Link)
+- NextAuth.js OAuth flow or email verification
+- User data persisted with Prisma
+- JWT session with role attachment
+- Middleware-based route protection
+- Role-based access control
 
-## 🔐 Authentication Flow
+### Payment Processing
 
-1. User initiates sign-in with Google, Apple, or Email
-2. NextAuth.js handles OAuth flow or email verification
-3. User data stored in PostgreSQL via Prisma
-4. JWT token created and stored in session
-5. User role retrieved from database and attached to token
-6. Protected routes checked via middleware
+- Cart management with Zustand
+- Stripe Checkout Session creation
+- Hosted payment page redirect
+- Webhook verification and processing
+- Order status updates
+- Receipt generation and email notification
+- Success page redirect
 
-## 💳 Payment Flow
+### Admin Operations
 
-1. User adds products to cart
-2. Checkout button initiates Stripe session creation
-3. User redirected to Stripe hosted checkout
-4. Payment processing via Stripe
-5. Webhook confirms payment and updates order status
-6. Receipt URL generated and stored
-7. Confirmation email sent to customer
-8. User redirected to success page
+- Full CRUD for products and variants
+- Bulk operations support
+- Image upload and management
+- Order fulfillment workflow
+- User role management
+- Analytics and reporting
 
-## 🛡️ Protected Routes
+## 💡 Skills Demonstrated
 
-- **Admin Routes** (`/admin/*`) - Requires ADMIN role
-- **Dashboard Routes** (`/account/*`) - Requires authentication
-- **Checkout** - Requires authentication
-- **API Routes** - Role-based access control
+- Full-Stack E-Commerce: Complete shopping platform from browsing to checkout
+- Payment Integration: Stripe API, webhooks, security best practices
+- Authentication: Multi-provider auth, session management, RBAC
+- Database Design: Normalized schema, relationships, migrations
+- State Management: Zustand for cart, form state with React Hook Form
+- API Development: RESTful endpoints, server actions, webhook handling
+- Admin Systems: CRUD operations, bulk actions, analytics
+- Email Integration: Transactional emails, templates
+- TypeScript: Advanced typing, Prisma-generated types, Zod validation
+- Modern React: Server Components, Server Actions, React 19
+- UI/UX: Responsive design, accessibility
+- DevOps: Environment configuration, migrations, deployment
 
-## 📝 Available Scripts
+## 🔧 Key Features Breakdown
 
-```bash
-npm run dev       # Start development server
-npm run build     # Build for production
-npm start         # Start production server
-npm run lint      # Run ESLint
-```
+### Product Management
 
-## 🌐 Environment Variables Checklist
+- Multi-variant support (size, color, custom options)
+- Individual pricing and stock per variant
+- Multiple image uploads per product
+- Category-based organization
+- Related products algorithm
 
-- [ ] `DATABASE_URL` - PostgreSQL connection string
-- [ ] `NEXTAUTH_URL` - Your app URL for auth callbacks
-- [ ] `NEXTAUTH_SECRET` - Secret key for JWT signing
-- [ ] `STRIPE_SECRET_KEY` - Stripe secret API key
-- [ ] `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` - Stripe public key
-- [ ] `STRIPE_WEBHOOK_SECRET` - Webhook signing secret
-- [ ] `GOOGLE_ID` & `GOOGLE_SECRET` - Google OAuth (optional)
-- [ ] `RESEND_API_KEY` - Email service (optional)
-- [ ] `NEXT_PUBLIC_APP_URL` - Public app URL
+### Order System
 
-## 📚 Learn More
+- Real-time status tracking
+- Email confirmations
+- Receipt generation via Stripe
+- Order history for users
+- Admin fulfillment interface
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Prisma Documentation](https://www.prisma.io/docs)
-- [NextAuth.js Documentation](https://next-auth.js.org)
-- [Stripe Documentation](https://stripe.com/docs)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Radix UI](https://www.radix-ui.com)
+### Security
 
-## 🚀 Deployment
+- Role-based access control
+- Protected routes with middleware
+- Stripe webhook signature verification
+- Secure session management
+- Environment variable validation
 
-### Deploy to Vercel (Recommended)
+## 📊 Performance Optimizations
 
-1. Push your code to GitHub
-2. Connect repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically on push
+- Server Components for reduced client bundle
+- Optimistic UI updates for cart operations
+- Image optimization with Next.js Image
+- Database query optimization with Prisma
+- Webhook signature verification for security
+- Edge middleware for route protection
 
-### Environment-Specific Setup
+## 🔗 Links
 
-- Update `NEXTAUTH_URL` to your production domain
-- Configure OAuth redirect URIs in provider settings
-- Update Stripe webhook endpoint
-- Set `NODE_ENV=production`
-
-## 📄 License
-
-This starter kit is provided as-is for your use. Customize and build upon it for your needs.
-
-## 🤝 Support & Customization
-
-This is a fully customizable starter kit. Key areas for customization:
-
-- **Branding** - Update colors, fonts, and logo in `app/globals.css` and metadata
-- **Product Fields** - Extend Prisma schema with custom product attributes
-- **Email Templates** - Customize email designs in `lib/mails.ts`
-- **Payment Methods** - Add alternative payment providers
-- **Shipping** - Integrate shipping APIs in `lib/constants/shipping.ts`
-- **Content** - Update homepage sections in `app/(shop)/_components/`
+Live Demo: (https://prism-fullstack-ecommerce-app.vercel.app/)
 
 ---
 
-**Happy building! 🎉**
+Developed by Bastien Andre
